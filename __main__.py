@@ -1,3 +1,4 @@
+import sys
 import re
 import requests
 
@@ -10,6 +11,8 @@ class FrequenciaNome:
             URL_API.format(nome=nome)
         ).json() # ex.: [{'periodo': ..., 'frequencia': ...}]
         self.periodos = {}
+        if not dados:
+            return
         for valores in dados[0]['res']:
             self.inclui_periodo(**valores)  
     
@@ -31,12 +34,8 @@ class FrequenciaNome:
         return [a for a, f in self.periodos.items() if f < self.media]
 
 
-if __name__ == '__main__':
+if len(sys.argv) > 1:
     nome = 'Julio'
-    while nome:
-        print('Nome:', nome, '-'*20)
-        freq = FrequenciaNome(nome)
-        print('Anos mais comuns:\n\t', freq.anos_mais_comuns())
-        print('Anos menos comuns:\n\t', freq.anos_menos_comuns())
-        nome = input('Digite um nome ou vazio para sair:')
-    print('='*20, 'FIM')
+    freq = FrequenciaNome(sys.argv[1])
+    print('Anos mais comuns:\n\t', freq.anos_mais_comuns())
+    print('Anos menos comuns:\n\t', freq.anos_menos_comuns())
