@@ -35,7 +35,9 @@ class FrequenciaNome:
 
 
 if len(sys.argv) > 1:
-    nome = 'Julio'
-    freq = FrequenciaNome(sys.argv[1])
-    print('Anos mais comuns:\n\t', freq.anos_mais_comuns())
-    print('Anos menos comuns:\n\t', freq.anos_menos_comuns())
+    nome = sys.argv[1]
+else:
+    nome = input('Qual o nome? ')
+freq = FrequenciaNome(nome)
+print('Anos mais comuns:\n\t', freq.anos_mais_comuns())
+print('Anos menos comuns:\n\t', freq.anos_menos_comuns())
